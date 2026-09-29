@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Business Name] | [Industry / Service Type]</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            primary: '#0047AB',
+                            dark: '#1A1A1A',
+                            light: '#F8FAFC',
+                            border: '#E2E8F0'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Alpine.js for Interactive States -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-white text-brand-dark font-sans antialiased selection:bg-brand-primary selection:text-white" x-data="{ currentTab: 'home', mobileMenuOpen: false, formSubmitted: false, formData: { name: '', email: '', phone: '', service: 'Package 1', date: '', message: '' } }">
+
+    <!-- Demo Notice Bar -->
+    <div class="bg-brand-dark text-white text-xs py-2 px-4 text-center font-medium tracking-wide">
+        <span>DEMO WEBSITE TEMPLATE • Created for client demonstration purposes only.</span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-border shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo Placeholder -->
+            <a href="#" @click.prevent="currentTab = 'home'; window.scrollTo(0,0);" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-white font-extrabold text-xl shadow-md">
+                    LOGO
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-extrabold tracking-tight text-brand-dark leading-none">[Business Name]</span>
+                    <span class="text-xs font-semibold uppercase tracking-widest text-brand-primary mt-1">[Tagline / Industry]</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-700">
+                <a href="#" @click.prevent="currentTab = 'home'; window.scrollTo(0,0);" :class="currentTab === 'home' ? 'text-brand-primary font-semibold' : 'hover:text-brand-primary transition'">Home</a>
+                <a href="#" @click.prevent="currentTab = 'services'; window.scrollTo(0,0);" :class="currentTab === 'services' ? 'text-brand-primary font-semibold' : 'hover:text-brand-primary transition'">Services</a>
+                <a href="#" @click.prevent="currentTab = 'pricing'; window.scrollTo(0,0);" :class="currentTab === 'pricing' ? 'text-brand-primary font-semibold' : 'hover:text-brand-primary transition'">Pricing</a>
+                <a href="#" @click.prevent="currentTab = 'gallery'; window.scrollTo(0,0);" :class="currentTab === 'gallery' ? 'text-brand-primary font-semibold' : 'hover:text-brand-primary transition'">Gallery</a>
+                <a href="#" @click.prevent="currentTab = 'about'; window.scrollTo(0,0);" :class="currentTab === 'about' ? 'text-brand-primary font-semibold' : 'hover:text-brand-primary transition'">About</a>
+                <a href="#" @click.prevent="currentTab = 'contact'; window.scrollTo(0,0);" :class="currentTab === 'contact' ? 'text-brand-primary font-semibold' : 'hover:text-brand-primary transition'">Contact</a>
+            </nav>
+
+            <!-- Action Button -->
+            <div class="hidden md:flex items-center gap-4">
+                <a href="#" @click.prevent="currentTab = 'contact'; window.scrollTo(0,0);" class="bg-brand-primary hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-xl shadow-sm transition text-sm">
+                    Book Now
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 text-brand-dark hover:text-brand-primary focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    <path x-show="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-white border-b border-brand-border px-4 pt-2 pb-6 space-y-3">
+            <a href="#" @click.prevent="currentTab = 'home'; mobileMenuOpen = false; window.scrollTo(0,0);" class="block py-2 text-base font-medium text-gray-800">Home</a>
+            <a href="#" @click.prevent="currentTab = 'services'; mobileMenuOpen = false; window.scrollTo(0,0);" class="block py-2 text-base font-medium text-gray-800">Services</a>
+            <a href="#" @click.prevent="currentTab = 'pricing'; mobileMenuOpen = false; window.scrollTo(0,0);" class="block py-2 text-base font-medium text-gray-800">Pricing</a>
+            <a href="#" @click.prevent="currentTab = 'gallery'; mobileMenuOpen = false; window.scrollTo(0,0);" class="block py-2 text-base font-medium text-gray-800">Gallery</a>
+            <a href="#" @click.prevent="currentTab = 'about'; mobileMenuOpen = false; window.scrollTo(0,0);" class="block py-2 text-base font-medium text-gray-800">About</a>
+            <a href="#" @click.prevent="currentTab = 'contact'; mobileMenuOpen = false; window.scrollTo(0,0);" class="block py-2 text-base font-medium text-gray-800">Contact</a>
+            <div class="pt-2">
+                <a href="#" @click.prevent="currentTab = 'contact'; mobileMenuOpen = false; window.scrollTo(0,0);" class="block w-full text-center bg-brand-primary text-white font-semibold py-3 rounded-xl">
+                    Book Now
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN DYNAMIC CONTENT CONTAINER -->
+    <main>
+
+        <!-- ================= HOME PAGE ================= -->
+        <div x-show="currentTab === 'home'" x-cloak>
+            <!-- Hero Section -->
+            <section class="relative bg-brand-dark text-white overflow-hidden py-24 lg:py-32">
+                <div class="absolute inset-0 z-0 opacity-30">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80" alt="Placeholder background" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/80 to-transparent z-0"></div>
+                <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-2xl">
+                        <span class="inline-block bg-brand-primary text-white text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg mb-6">
+                            [Subtitle / Location Placeholder]
+                        </span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
+                            [Primary Headline Goes Here. <br><span class="text-blue-400">Catchy Subtext.</span>]
+                        </h1>
+                        <p class="text-lg text-gray-300 mb-8 leading-relaxed">
+                            [Short supporting description explaining the value proposition of the business, focusing on quality, reliability, and customer satisfaction.]
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#" @click.prevent="currentTab = 'contact'; window.scrollTo(0,0);" class="bg-brand-primary hover:bg-blue-600 text-white font-semibold px-8 py-4 rounded-xl shadow-lg text-center transition">
+                                [Primary CTA Button]
+                            </a>
+                            <a href="#" @click.prevent="currentTab = 'services'; window.scrollTo(0,0);" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-semibold px-8 py-4 rounded-xl border border-white/20 text-center transition">
+                                [Secondary CTA Button]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features / Why Choose Us -->
+            <section class="py-20 bg-brand-light border-b border-brand-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-3xl font-extrabold text-brand-dark tracking-tight mb-4">[Why Choose Us Section Heading]</h2>
+                        <p class="text-gray-600">[Brief descriptive sentence highlighting core strengths or unique selling points.]</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="bg-white p-8 rounded-2xl border border-brand-border shadow-sm">
+                            <div class="w-12 h-12 bg-brand-primary/10 rounded-xl flex items-center justify-center text-brand-primary mb-6 font-bold">01</div>
+                            <h3 class="text-lg font-bold text-brand-dark mb-2">[Benefit One]</h3>
+                            <p class="text-sm text-gray-600">Detailed description of this specific benefit or business feature.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl border border-brand-border shadow-sm">
+                            <div class="w-12 h-12 bg-brand-primary/10 rounded-xl flex items-center justify-center text-brand-primary mb-6 font-bold">02</div>
+                            <h3 class="text-lg font-bold text-brand-dark mb-2">[Benefit Two]</h3>
+                            <p class="text-sm text-gray-600">Detailed description of this specific benefit or business feature.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl border border-brand-border shadow-sm">
+                            <div class="w-12 h-12 bg-brand-primary/10 rounded-xl flex items-center justify-center text-brand-primary mb-6 font-bold">03</div>
+                            <h3 class="text-lg font-bold text-brand-dark mb-2">[Benefit Three]</h3>
+                            <p class="text-sm text-gray-600">Detailed description of this specific benefit or business feature.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl border border-brand-border shadow-sm">
+                            <div class="w-12 h-12 bg-brand-primary/10 rounded-xl flex items-center justify-center text-brand-primary mb-6 font-bold">04</div>
+                            <h3 class="text-lg font-bold text-brand-dark mb-2">[Benefit Four]</h3>
+                            <p class="text-sm text-gray-600">Detailed description of this specific benefit or business feature.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final CTA -->
+            <section class="py-20 bg-brand-dark text-white text-center">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-6">[Ready to get started with your project?]</h2>
+                    <p class="text-gray-300 mb-8 max-w-xl mx-auto text-base">[Call to action subtext encouraging visitors to contact the business.]</p>
+                    <a href="#" @click.prevent="currentTab = 'contact'; window.scrollTo(0,0);" class="inline-block bg-brand-primary hover:bg-blue-600 text-white font-semibold px-8 py-4 rounded-xl shadow-lg transition">
+                        [Book / Contact Now]
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= SERVICES PAGE ================= -->
+        <div x-show="currentTab === 'services'" x-cloak class="py-16 bg-brand-light min-h-screen">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-brand-primary font-bold text-xs uppercase tracking-widest">[Offerings]</span>
+                    <h1 class="text-4xl font-extrabold text-brand-dark mt-1 mb-4">Our Services</h1>
+                    <p class="text-gray-600 text-lg">[Overview of professional services offered by the business.]</p>
+                </div>
+                <!-- Service Cards -->
+                <div class="space-y-8">
+                    <div class="bg-white rounded-2xl border border-brand-border overflow-hidden shadow-sm p-8 flex flex-col md:flex-row justify-between items-center">
+                        <div>
+                            <h2 class="text-2xl font-bold text-brand-dark mb-2">[Service Title One]</h2>
+                            <p class="text-gray-600 max-w-xl mb-4">[Comprehensive service description outlining what is done during this package.]</p>
+                            <span class="text-brand-primary font-extrabold text-xl">[Price Placeholder]</span>
+                        </div>
+                        <a href="#" @click.prevent="currentTab = 'contact'; window.scrollTo(0,0);" class="mt-4 md:mt-0 bg-brand-primary text-white font-semibold px-6 py-3 rounded-xl text-sm">Select Service</a>
+                    </div>
+                    <div class="bg-white rounded-2xl border border-brand-border overflow-hidden shadow-sm p-8 flex flex-col md:flex-row justify-between items-center">
+                        <div>
+                            <h2 class="text-2xl font-bold text-brand-dark mb-2">[Service Title Two]</h2>
+                            <p class="text-gray-600 max-w-xl mb-4">[Comprehensive service description outlining what is done during this package.]</p>
+                            <span class="text-brand-primary font-extrabold text-xl">[Price Placeholder]</span>
+                        </div>
+                        <a href="#" @click.prevent="currentTab = 'contact'; window.scrollTo(0,0);" class="mt-4 md:mt-0 bg-brand-primary text-white font-semibold px-6 py-3 rounded-xl text-sm">Select Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PRICING PAGE ================= -->
+        <div x-show="currentTab === 'pricing'" x-cloak class="py-16 bg-white min-h-screen">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-brand-primary font-bold text-xs uppercase tracking-widest">[Rates]</span>
+                    <h1 class="text-4xl font-extrabold text-brand-dark mt-1 mb-4">Pricing Packages</h1>
+                    <p class="text-gray-600 text-lg">[Transparent tier breakdown for client selection.]</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <div class="bg-brand-light p-8 rounded-3xl border border-brand-border">
+                        <h3 class="text-xl font-bold mb-2">Package A</h3>
+                        <div class="text-4xl font-extrabold mb-6">[R000]</div>
+                        <p class="text-sm text-gray-600 mb-6">Brief package outline description.</p>
+                        <a href="#" @click.prevent="currentTab = 'contact'; window.scrollTo(0,0);" class="block text-center bg-white border border-brand-border py-3 rounded-xl font-semibold text-sm">Choose Package</a>
+                    </div>
+                    <div class="bg-brand-dark text-white p-8 rounded-3xl shadow-xl transform lg:-translate-y-2">
+                        <h3 class="text-xl font-bold mb-2">Package B (Featured)</h3>
+                        <div class="text-4xl font-extrabold mb-6">[R000]</div>
+                        <p class="text-sm text-gray-300 mb-6">Brief package outline description.</p>
+                        <a href="#" @click.prevent="currentTab = 'contact'; window.scrollTo(0,0);" class="block text-center bg-brand-primary py-3 rounded-xl font-semibold text-sm text-white">Choose Package</a>
+                    </div>
+                    <div class="bg-brand-light p-8 rounded-3xl border border-brand-border">
+                        <h3 class="text-xl font-bold mb-2">Package C</h3>
+                        <div class="text-4xl font-extrabold mb-6">[R000]</div>
+                        <p class="text-sm text-gray-600 mb-6">Brief package outline description.</p>
+                        <a href="#" @click.prevent="currentTab = 'contact'; window.scrollTo(0,0);" class="block text-center bg-white border border-brand-border py-3 rounded-xl font-semibold text-sm">Choose Package</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= GALLERY PAGE ================= -->
+        <div x-show="currentTab === 'gallery'" x-cloak class="py-16 bg-brand-light min-h-screen">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-brand-primary font-bold text-xs uppercase tracking-widest">[Portfolio]</span>
+                    <h1 class="text-4xl font-extrabold text-brand-dark mt-1 mb-4">Project Gallery</h1>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="h-64 rounded-2xl bg-gray-200 border border-brand-border flex items-center justify-center text-gray-500">[Image Placeholder 1]</div>
+                    <div class="h-64 rounded-2xl bg-gray-200 border border-brand-border flex items-center justify-center text-gray-500">[Image Placeholder 2]</div>
+                    <div class="h-64 rounded-2xl bg-gray-200 border border-brand-border flex items-center justify-center text-gray-500">[Image Placeholder 3]</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= ABOUT PAGE ================= -->
+        <div x-show="currentTab === 'about'" x-cloak class="py-16 bg-white min-h-screen">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-brand-primary font-bold text-xs uppercase tracking-widest">[Our Story]</span>
+                    <h1 class="text-4xl font-extrabold text-brand-dark mt-1 mb-4">About Us</h1>
+                    <p class="text-gray-600 text-lg">[Background information about the team, mission, and dedication to excellence.]</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= CONTACT PAGE ================= -->
+        <div x-show="currentTab === 'contact'" x-cloak class="py-16 bg-brand-light min-h-screen">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-brand-primary font-bold text-xs uppercase tracking-widest">[Reach Out]</span>
+                    <h1 class="text-4xl font-extrabold text-brand-dark mt-1 mb-4">Contact & Bookings</h1>
+                </div>
+                <div class="max-w-xl mx-auto bg-white p-8 rounded-3xl border border-brand-border shadow-sm">
+                    <form @submit.prevent="formSubmitted = true" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Your Name</label>
+                            <input type="text" x-model="formData.name" required class="w-full px-4 py-3 rounded-xl border border-brand-border text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Email Address</label>
+                            <input type="email" x-model="formData.email" required class="w-full px-4 py-3 rounded-xl border border-brand-border text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Message</label>
+                            <textarea x-model="formData.message" rows="4" class="w-full px-4 py-3 rounded-xl border border-brand-border text-sm"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-brand-primary text-white font-semibold py-3 rounded-xl text-sm">Submit Form</button>
+                        <div x-show="formSubmitted" class="text-emerald-600 text-center text-sm font-medium pt-2">✓ Form submitted successfully (Demo).</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-12 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-gray-500">
+            <p>&copy; 2026 [Business Name]. All rights reserved. (Blank Template Demo Website).</p>
+        </div>
+    </footer>
+
+</body>
+</html>
